@@ -140,15 +140,57 @@ namespace CCI
             return a;
         }
 
+        /// <summary>
+        /// Delete middle node
+        /// </summary>
+        /// <param name="args"></param>
+        /// 
+        static public void DeleteMiddleElement(LinkedList<int> l)
+        {
+            if (l == null || l.First == null)
+                return;
+            if (l.First.Next == null)
+            {
+                l.RemoveFirst();
+                return;
+            }
+            if(l.First.Next.Next == null)
+            {
+                l.RemoveFirst();
+                return;
+            }
+            LinkedListNode<int> a = l.First, b = l.First;
+            while (b.Next != null)
+            {
+                b = b.Next;
+                if (b.Next != null)
+                {                    
+                    b = b.Next;
+                }
+                else
+                {
+                    l.Remove(a);
+                    return;
+
+                }
+                a = a.Next;
+            }
+            l.Remove(a);
+        }
+
+
+        //2.4 Write code to partition a linked list around a value x.
 
         static void Main(string[] args)
         {
             LinkedList<int> myList = new LinkedList<int>();
-            myList.AddLast(new LinkedListNode<int>(3));
-            myList.AddLast(new LinkedListNode<int>(4));
+            myList.AddLast(new LinkedListNode<int>(1));
+           // myList.AddLast(new LinkedListNode<int>(2));
+            //myList.AddLast(new LinkedListNode<int>(3));
+            //myList.AddLast(new LinkedListNode<int>(4));
             //myList.AddLast(new LinkedListNode<int>(5));
             //myList.AddLast(new LinkedListNode<int>(6));
-            //myList.AddLast(new LinkedListNode<int>(7));
+           // myList.AddLast(new LinkedListNode<int>(7));
             //myList.AddLast(new LinkedListNode<int>(8));
             //myList.AddLast(new LinkedListNode<int>(9));
             //myList.AddLast(new LinkedListNode<int>(10));
@@ -160,14 +202,12 @@ namespace CCI
             Console.WriteLine("\n");
 
             //            LinkedList<int> result= RemoveAllDuplicates(myList);
-            LinkedListNode<int> x = ReturnMiddleElement(myList);
-            if (x != null)
-                Console.WriteLine("kth value is:{0}", x.Value);
-
-            //foreach (int i in result)
-            //{
-            //    Console.Write(i + "  ");
-            //}
+            DeleteMiddleElement(myList);
+            
+            foreach (int i in myList)
+            {
+                Console.Write(i + " -> ");
+         }
         }
     }
 }
